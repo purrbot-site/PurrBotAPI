@@ -1,7 +1,5 @@
 package com.andre601.purrBotQuoter.utils;
 
-import sun.util.locale.provider.TimeZoneNameUtility;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
