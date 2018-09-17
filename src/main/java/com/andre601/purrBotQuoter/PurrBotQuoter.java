@@ -13,13 +13,15 @@ public class PurrBotQuoter {
 
         get("/api/quote", (request, response) -> {
 
-            String text = request.queryParams("text");
-            String avatarURL = request.queryParams("avatar");
+            String text = request.queryParamOrDefault("text", "Just some text");
+            String avatarURL = request.queryParamOrDefault("avatar",
+                    "https://i.imgur.com/ZBvZLz4.png"
+            );
             String name = request.queryParamOrDefault("name", "someone");
             String timestamp = request.queryParamOrDefault("time", String.valueOf(
                     System.currentTimeMillis()
             ));
-            String format = request.queryParamOrDefault("format", null);
+            String format = request.queryParamOrDefault("format", "dd. MMM yyyy HH:mm:ss");
 
             return ImageUtil.getQuoteImage(text, avatarURL, name, timestamp, format);
         });

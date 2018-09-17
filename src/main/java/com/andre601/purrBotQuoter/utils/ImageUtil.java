@@ -7,16 +7,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ImageUtil {
 
     private static final String[] UA = {"User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
             "(KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"};
-
-    private static DateTimeFormatter date;
 
     private static BufferedImage getUserAvatar(String url) throws Exception{
 
@@ -39,7 +39,7 @@ public class ImageUtil {
 
         String[] quote = text.split(" ");
 
-        BufferedImage image = new BufferedImage(1000, 0, 0);
+        BufferedImage image = new BufferedImage(1000, 1, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D img = image.createGraphics();
 
@@ -70,17 +70,19 @@ public class ImageUtil {
 
         Font textFont = new Font("Arial", Font.PLAIN, 20);
         Font nameFont = new Font("Arial", Font.BOLD, 20);
+        Font dateFont = new Font("Arial", Font.PLAIN, 10);
 
         finalImg.setColor(Color.WHITE);
         finalImg.setFont(nameFont);
 
         finalImg.drawString(name, 300, 0);
 
-        if(format == null){
-            date = DateTimeFormatter.ofPattern("dd. MMM yyyy HH:mm:ss");
-        }else{
-            date = DateTimeFormatter.ofPattern(format);
-        }
+        long time = Long.parseLong(timeStamp);
+        Date dateTime = new Date(time);
+        SimpleDateFormat date = new SimpleDateFormat(format);
+        String finalDate = date.format(dateTime);
+
+        finalImg.setColor(new Color(66, 69, 74));
 
         finalImg.setFont(textFont);
         int posY = 25;
@@ -91,7 +93,7 @@ public class ImageUtil {
 
         finalImg.dispose();
 
-        byte[] rawImage = null;
+        byte[] rawImage;
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
             ImageIO.write(finalImage, "png", baos);
 
