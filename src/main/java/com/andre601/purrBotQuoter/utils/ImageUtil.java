@@ -5,6 +5,7 @@ import sun.util.locale.provider.TimeZoneNameUtility;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
@@ -32,7 +33,7 @@ public class ImageUtil {
         return avatar;
     }
 
-    public static BufferedImage getQuoteImage(String text, String avatarURL,String name, String timeStamp,
+    public static byte[] getQuoteImage(String text, String avatarURL,String name, String timeStamp,
                                               String format) throws Exception {
 
         BufferedImage avatar = getUserAvatar(avatarURL);
@@ -92,7 +93,15 @@ public class ImageUtil {
 
         finalImg.dispose();
 
-        return finalImage;
+        byte[] rawImage = null;
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
+            ImageIO.write(finalImage, "png", baos);
+
+            baos.flush();
+            rawImage = baos.toByteArray();
+        }
+
+        return rawImage;
     }
 
     private static BufferedImage resize(BufferedImage image, int newHeight){
