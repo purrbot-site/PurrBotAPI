@@ -39,14 +39,14 @@ public class ImageUtil {
 
         String[] quote = text.split(" ");
 
-        BufferedImage image = new BufferedImage(1000, 1, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(1000, 300, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D img = image.createGraphics();
 
         StringBuilder sb = new StringBuilder();
         String str = "";
         List<String> msg = new ArrayList<>();
-        int lines = 0;
+        int lines = 1;
         for(int i = 0; i < quote.length; i++){
             if(img.getFontMetrics().stringWidth(str + " " + quote[i]) > image.getWidth()){
                 msg.add(str);
@@ -60,7 +60,7 @@ public class ImageUtil {
 
         int height = lines * 20;
 
-        BufferedImage finalImage = resize(image, height);
+        BufferedImage finalImage = resize(image, (height > image.getHeight() ? height : image.getHeight()));
         Graphics2D finalImg = finalImage.createGraphics();
         finalImg.setColor(new Color(54, 57, 63));
         finalImg.fillRect(0, 0, finalImage.getWidth(), finalImage.getHeight());
@@ -72,8 +72,8 @@ public class ImageUtil {
         Font nameFont = new Font("Arial", Font.BOLD, 20);
         Font dateFont = new Font("Arial", Font.PLAIN, 10);
 
-        finalImg.setColor(Color.WHITE);
         finalImg.setFont(nameFont);
+        finalImg.setColor(Color.WHITE);
 
         finalImg.drawString(name, 300, 0);
 
@@ -82,9 +82,13 @@ public class ImageUtil {
         SimpleDateFormat date = new SimpleDateFormat(format);
         String finalDate = date.format(dateTime);
 
+        finalImg.setFont(dateFont);
         finalImg.setColor(new Color(66, 69, 74));
 
+        finalImg.drawString(finalDate, 300 + finalImg.getFontMetrics().stringWidth(name), 0);
+
         finalImg.setFont(textFont);
+        finalImg.setColor(Color.WHITE);
         int posY = 25;
         for(int i = 0; i < msg.size(); i++){
             finalImg.drawString(msg.get(i), 300, posY);
