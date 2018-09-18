@@ -66,7 +66,7 @@ public class ImageUtil {
         finalImg.fillRect(0, 0, finalImage.getWidth(), finalImage.getHeight());
 
         finalImg.drawImage(avatar, 5, 5, 290, 290, null);
-        finalImg.drawImage(overlay, 5, 5, null);
+        finalImg.drawImage(overlay, 0, 0, null);
 
         Font textFont = new Font("Arial", Font.PLAIN, 20);
         Font nameFont = new Font("Arial", Font.BOLD, 20);
