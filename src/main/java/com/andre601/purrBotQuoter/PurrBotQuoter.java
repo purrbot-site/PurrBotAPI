@@ -22,7 +22,7 @@ public class PurrBotQuoter {
 
             String text = request.queryParamOrDefault("text", "Just some text");
             String avatarURL = request.queryParamOrDefault("avatar",
-                    "https://i.imgur.com/ZBvZLz4.png"
+                    "https://i.imgur.com/63aniDJ.png"
             );
             String name = request.queryParamOrDefault("name", "someone");
             String timestamp = request.queryParamOrDefault("time", String.valueOf(
@@ -34,7 +34,6 @@ public class PurrBotQuoter {
 
             try{
                 HttpServletResponse raw = response.raw();
-                response.header("Content-Disposition", "attachment; filename=image.png");
                 raw.getOutputStream().write(ImageUtil.getQuoteImage(
                         text, avatarURL, name, timestamp, format
                 ));

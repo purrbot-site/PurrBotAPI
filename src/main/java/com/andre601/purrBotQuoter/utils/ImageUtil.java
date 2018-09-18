@@ -1,5 +1,7 @@
 package com.andre601.purrBotQuoter.utils;
 
+import com.andre601.purrBotQuoter.PurrBotQuoter;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -39,6 +41,10 @@ public class ImageUtil {
 
         String[] quote = text.split(" ");
 
+        PurrBotQuoter.getLogger().info("Got text: " + text);
+
+        Font textFont = new Font("Arial", Font.PLAIN, 60);
+
         BufferedImage image = new BufferedImage(1000, 300, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D img = image.createGraphics();
@@ -48,17 +54,27 @@ public class ImageUtil {
         List<String> msg = new ArrayList<>();
         int lines = 1;
         for(int i = 0; i < quote.length; i++){
-            if(img.getFontMetrics().stringWidth(str + " " + quote[i]) > image.getWidth()){
+            if(img.getFontMetrics(textFont).stringWidth(str + " " + quote[i]) > 700){
+                PurrBotQuoter.getLogger().info("Made new line.");
                 msg.add(str);
                 str = "";
                 lines++;
+            }else
+            if(quote[i].endsWith("\n")) {
+                sb.append(str).append(" ").append(quote[i]);
+                msg.add(sb.toString());
+                str = "";
+                lines++;
             }else{
+                PurrBotQuoter.getLogger().info("Added word " + quote[i]);
                 sb.append(str).append(" ").append(quote[i]);
                 str = sb.toString();
             }
         }
+        PurrBotQuoter.getLogger().info("Added final word(s): " + str);
+        msg.add(str);
 
-        int height = lines * 20;
+        int height = lines * 60;
 
         BufferedImage finalImage = resize(image, (height > image.getHeight() ? height : image.getHeight()));
         Graphics2D finalImg = finalImage.createGraphics();
@@ -68,14 +84,15 @@ public class ImageUtil {
         finalImg.drawImage(avatar, 5, 5, 290, 290, null);
         finalImg.drawImage(overlay, 0, 0, null);
 
-        Font textFont = new Font("Arial", Font.PLAIN, 20);
-        Font nameFont = new Font("Arial", Font.BOLD, 20);
-        Font dateFont = new Font("Arial", Font.PLAIN, 10);
+        Font nameFont = new Font("Arial", Font.BOLD, 60);
+        Font dateFont = new Font("Arial", Font.PLAIN, 20);
 
         finalImg.setFont(nameFont);
         finalImg.setColor(Color.WHITE);
 
-        finalImg.drawString(name, 300, 0);
+        PurrBotQuoter.getLogger().info("Write name " + name);
+        finalImg.drawString(name, 300, 65);
+        PurrBotQuoter.getLogger().info("Name written!");
 
         long time = Long.parseLong(timeStamp);
         Date dateTime = new Date(time);
@@ -83,17 +100,23 @@ public class ImageUtil {
         String finalDate = date.format(dateTime);
 
         finalImg.setFont(dateFont);
-        finalImg.setColor(new Color(66, 69, 74));
+        finalImg.setColor(new Color(85, 87, 93));
 
-        finalImg.drawString(finalDate, 300 + finalImg.getFontMetrics().stringWidth(name), 0);
+        int posX = 310 + finalImg.getFontMetrics(nameFont).stringWidth(name);
+
+        PurrBotQuoter.getLogger().info("Write date: " + finalDate);
+        finalImg.drawString(finalDate, posX, 65);
+        PurrBotQuoter.getLogger().info("Date written!");
 
         finalImg.setFont(textFont);
         finalImg.setColor(Color.WHITE);
-        int posY = 25;
+        int posY = 130;
         for(int i = 0; i < msg.size(); i++){
+            PurrBotQuoter.getLogger().info("Writing word(s) " + msg.get(i) + " at X:300, Y:" + posY);
             finalImg.drawString(msg.get(i), 300, posY);
-            posY = posY + 20;
+            posY = posY + 60;
         }
+        PurrBotQuoter.getLogger().info("Word(s) written!");
 
         finalImg.dispose();
 
