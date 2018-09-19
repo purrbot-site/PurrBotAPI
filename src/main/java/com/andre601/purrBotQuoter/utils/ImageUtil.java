@@ -86,7 +86,7 @@ public class ImageUtil {
         finalImg.drawImage(overlay, 0, 0, null);
 
         Font nameFont = new Font("Arial", Font.BOLD, 60);
-        Font dateFont = new Font("Arial", Font.PLAIN, 20);
+        Font dateFont = new Font("Arial", Font.PLAIN, 30);
 
         finalImg.setFont(nameFont);
         finalImg.setColor((nameColor == null ? Color.WHITE : nameColor));
@@ -103,7 +103,7 @@ public class ImageUtil {
 
         int posX = 310 + finalImg.getFontMetrics(nameFont).stringWidth(name);
 
-        finalImg.drawString(finalDate + " UTC", posX, 65);
+        finalImg.drawString(finalDate, posX, 65);
 
         finalImg.setFont(textFont);
         finalImg.setColor(Color.WHITE);

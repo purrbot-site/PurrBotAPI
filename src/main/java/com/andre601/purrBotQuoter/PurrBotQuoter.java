@@ -30,7 +30,9 @@ public class PurrBotQuoter {
                 String timestamp = request.queryParamOrDefault("time", String.valueOf(
                         System.currentTimeMillis()
                 ));
-                String format = request.queryParamOrDefault("format", "dd. MMM yyyy HH:mm:ss");
+                String format = request.queryParamOrDefault("format",
+                        "dd. MMM yyyy HH:mm:ss zzz"
+                );
 
                 String color = request.queryParamOrDefault("color", "#ffffff");
 

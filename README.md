@@ -39,7 +39,7 @@ Example: `1537286684064` would be `18. september 2018 16:04:44 UTC`
 **Requires**: Valid String (date-format)
 
 Lets you change the format/syntax of the date.  
-You can use `s` for seconds, `m` for minutes, `H` for hours, `d` for days, `M` for months and `y` for years.  
+You can use `s` for seconds, `m` for minutes, `H` for hours, `d` for days, `M` for months, `y` for years and `z` for the timezone.
 Depending on how many letters you use, can it also change the look of the date.  
 Example: `dd. MMM yyyy` would return `18. Sep 2018` while `dd.MM.yyyy` would return `18.09.2018`
 
