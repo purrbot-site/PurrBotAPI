@@ -31,25 +31,27 @@ public class ImageUtil {
     }
 
     public static byte[] getQuoteImage(String text, String avatarURL,String name, String timeStamp,
-                                              String format) throws Exception {
+                                              String format, String color) throws Exception {
 
         BufferedImage avatar = getUserAvatar(avatarURL);
         BufferedImage overlay = ImageIO.read(new File("img/overlay.png"));
 
         String[] quote = text.split(" ");
 
-        Font textFont = new Font("Arial", Font.PLAIN, 60);
+        Font textFont = new Font("Arial", Font.PLAIN, 55);
 
-        BufferedImage image = new BufferedImage(1000, 300, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(1920, 300, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D img = image.createGraphics();
+
+        Color nameColor = ColorUtil.checkColor(color);
 
         StringBuilder sb = new StringBuilder();
         String str = "";
         List<String> msg = new ArrayList<>();
         int lines = 1;
         for(String a : quote){
-            if(img.getFontMetrics(textFont).stringWidth(str + " " + a) >= 600){
+            if(img.getFontMetrics(textFont).stringWidth(str + " " + a) >= 1500){
                 msg.add(str);
                 str = "";
                 sb = new StringBuilder();
@@ -73,7 +75,7 @@ public class ImageUtil {
         }
         msg.add(str);
 
-        int height = 90 + (lines * 60);
+        int height = 110 + (lines * 60);
 
         BufferedImage finalImage = resize(image, (height > image.getHeight() ? height : image.getHeight()));
         Graphics2D finalImg = finalImage.createGraphics();
@@ -87,7 +89,7 @@ public class ImageUtil {
         Font dateFont = new Font("Arial", Font.PLAIN, 20);
 
         finalImg.setFont(nameFont);
-        finalImg.setColor(Color.WHITE);
+        finalImg.setColor((nameColor == null ? Color.WHITE : nameColor));
 
         finalImg.drawString(name, 300, 65);
 
@@ -97,15 +99,15 @@ public class ImageUtil {
         String finalDate = date.format(dateTime);
 
         finalImg.setFont(dateFont);
-        finalImg.setColor(new Color(85, 87, 93));
+        finalImg.setColor(new Color(103, 113, 122));
 
         int posX = 310 + finalImg.getFontMetrics(nameFont).stringWidth(name);
 
-        finalImg.drawString(finalDate, posX, 65);
+        finalImg.drawString(finalDate + " UTC", posX, 65);
 
         finalImg.setFont(textFont);
         finalImg.setColor(Color.WHITE);
-        int posY = 130;
+        int posY = 150;
         for(String a : msg){
             finalImg.drawString(a, 310, posY);
             posY = posY + 60;

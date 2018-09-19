@@ -43,7 +43,14 @@ You can use `s` for seconds, `m` for minutes, `H` for hours, `d` for days, `M` f
 Depending on how many letters you use, can it also change the look of the date.  
 Example: `dd. MMM yyyy` would return `18. Sep 2018` while `dd.MM.yyyy` would return `18.09.2018`
 
-### How it can be used
+### Color
+**Syntax**: `color=<#rrggbb>`
+**Requires**: Valid hex-color
+
+With that can you change the color of the displayed name.
+The color-format is in hexadecimal (#rrggbb). The # can be optional.
+
+## How it can be used
 The link can NOT be used as a direct image-link.  
 You can however use it, to download the image and then f.e. upload it in a chat.  
 Support as direct-image may be added in the future, but I do not promise anything...

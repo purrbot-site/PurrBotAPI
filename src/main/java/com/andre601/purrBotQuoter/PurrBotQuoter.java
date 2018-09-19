@@ -18,37 +18,46 @@ public class PurrBotQuoter {
 
         Spark.port(2000);
 
-        get("/api/quote", (request, response) -> {
+        path("/api", () -> {
+            before("/*", (q, a) -> getLogger().info("Received API-call!"));
+            get("/quote", (request, response) -> {
 
-            String text = request.queryParamOrDefault("text", "Just some text");
-            String avatarURL = request.queryParamOrDefault("avatar",
-                    "https://i.imgur.com/63aniDJ.png"
-            );
-            String name = request.queryParamOrDefault("name", "someone");
-            String timestamp = request.queryParamOrDefault("time", String.valueOf(
-                    System.currentTimeMillis()
-            ));
-            String format = request.queryParamOrDefault("format", "dd. MMM yyyy HH:mm:ss");
-
-            getLogger().info("Received request!");
-
-            try{
-                HttpServletResponse raw = response.raw();
-                raw.getOutputStream().write(ImageUtil.getQuoteImage(
-                        text, avatarURL, name, timestamp, format
+                String text = request.queryParamOrDefault("text", "Just some text");
+                String avatarURL = request.queryParamOrDefault("avatar",
+                        "https://i.imgur.com/63aniDJ.png"
+                );
+                String name = request.queryParamOrDefault("name", "someone");
+                String timestamp = request.queryParamOrDefault("time", String.valueOf(
+                        System.currentTimeMillis()
                 ));
-                raw.getOutputStream().flush();
-                raw.getOutputStream().close();
-                response.type("image/png");
+                String format = request.queryParamOrDefault("format", "dd. MMM yyyy HH:mm:ss");
 
-                getLogger().info("Success!");
-                return raw;
-            }catch (IOException ex){
-                halt();
-            }
+                String color = request.queryParamOrDefault("color", "#ffffff");
 
-            getLogger().error("Failure!");
-            return response;
+                try {
+                    HttpServletResponse raw = response.raw();
+                    raw.getOutputStream().write(
+                            ImageUtil.getQuoteImage(
+                                    text,
+                                    avatarURL,
+                                    name,
+                                    timestamp,
+                                    format,
+                                    color
+                    ));
+                    raw.getOutputStream().flush();
+                    raw.getOutputStream().close();
+                    response.type("image/png");
+
+                    getLogger().info("Success!");
+                    return raw;
+                } catch (IOException ex) {
+                    halt();
+                }
+
+                getLogger().error("Failure!");
+                return response;
+            });
         });
 
         getLogger().info("API started!");
