@@ -1,7 +1,5 @@
 package com.andre601.purrBotQuoter.utils;
 
-import com.andre601.purrBotQuoter.PurrBotQuoter;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +8,6 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
