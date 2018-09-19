@@ -44,10 +44,10 @@ Depending on how many letters you use, can it also change the look of the date.
 Example: `dd. MMM yyyy` would return `18. Sep 2018` while `dd.MM.yyyy` would return `18.09.2018`
 
 ### Color
-**Syntax**: `color=<#rrggbb>`
+**Syntax**: `color=<#rrggbb>`  
 **Requires**: Valid hex-color
 
-With that can you change the color of the displayed name.
+With that can you change the color of the displayed name.  
 The color-format is in hexadecimal (#rrggbb). The # can be optional.
 
 ## How it can be used
