@@ -37,6 +37,7 @@ public class PurrBotQuoter {
                 String color = request.queryParamOrDefault("color", "#ffffff");
 
                 try {
+                    response.raw().setContentType("image/png");
                     HttpServletResponse raw = response.raw();
                     raw.getOutputStream().write(
                             ImageUtil.getQuoteImage(
@@ -49,7 +50,6 @@ public class PurrBotQuoter {
                     ));
                     raw.getOutputStream().flush();
                     raw.getOutputStream().close();
-                    response.type("image/png");
 
                     getLogger().info("Success!");
                     return raw;

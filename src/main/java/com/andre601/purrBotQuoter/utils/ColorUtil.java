@@ -6,7 +6,7 @@ public class ColorUtil {
 
     public static Color checkColor(String color){
 
-        Color result = null;
+        Color result;
 
         try{
             result = Color.decode((color.startsWith("#") ? color : "#" + color));
