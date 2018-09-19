@@ -51,6 +51,8 @@ public class PurrBotQuoter {
             return response;
         });
 
+        getLogger().info("API started!");
+
     }
 
     public static Logger getLogger(){
