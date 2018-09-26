@@ -51,6 +51,9 @@ With that can you change the color of the displayed name.
 The color-format is in hexadecimal (#rrggbb). The # can be optional.
 
 ## How it can be used
-The link can NOT be used as a direct image-link.  
-You can however use it, to download the image and then f.e. upload it in a chat.  
-Support as direct-image may be added in the future, but I do not promise anything...
+**It can be used**:
+- to download the image.
+- to show a image-preview in Discord.
+
+**It can NOT be used**:
+- As a valid image-link (To show it in embeds f.e.)
