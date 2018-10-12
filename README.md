@@ -1,6 +1,7 @@
 # PurrBotQuoter
 **PurrBotQuoter** is a api made, to create images, that look like being directly taken from Discord itself!  
-To use it, simply connect to https://purrbot.site/api/quote to see an example-image.
+You can simply connect to https://purrbot.site/api/quote and you'll see this image here as an example:  
+![](https://purrbot.site/api/quote)
 
 ## Params
 You can provide additional params through the link.  
