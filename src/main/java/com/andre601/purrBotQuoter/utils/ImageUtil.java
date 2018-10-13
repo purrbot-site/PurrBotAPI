@@ -44,14 +44,14 @@ public class ImageUtil {
 
         Graphics2D img = image.createGraphics();
 
-        Color nameColor = ColorUtil.checkColor(color);
+        Color nameColor = new Color(Integer.valueOf(color));
 
         StringBuilder sb = new StringBuilder();
         String str = "";
         List<String> msg = new ArrayList<>();
         int lines = 1;
         for(String a : quote){
-            if(img.getFontMetrics(textFont).stringWidth(str + " " + a) >= 1500){
+            if(img.getFontMetrics(textFont).stringWidth(str + " " + a) >= 1500) {
                 msg.add(str);
                 str = "";
                 sb = new StringBuilder();
@@ -89,7 +89,7 @@ public class ImageUtil {
         Font dateFont = new Font("Arial", Font.PLAIN, 30);
 
         finalImg.setFont(nameFont);
-        finalImg.setColor((nameColor == null ? Color.WHITE : nameColor));
+        finalImg.setColor(nameColor);
 
         finalImg.drawString(name, 300, 65);
 

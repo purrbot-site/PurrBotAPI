@@ -41,26 +41,64 @@ public class PurrBotQuoter {
                     HttpServletResponse raw = response.raw();
                     raw.getOutputStream().write(
                             ImageUtil.getQuoteImage(
-                                    text,
+                                    text.replace("\\n", "\\n "),
                                     avatarURL,
                                     name,
                                     timestamp,
                                     format,
                                     color
-                    ));
+                            )
+                    );
                     raw.getOutputStream().flush();
                     raw.getOutputStream().close();
 
                     getLogger().info("Success!");
                     return raw;
                 } catch (IOException ex) {
-                    halt();
+                    halt("Something went wrong! Check if the Parameters are valid!");
                 }
 
                 getLogger().error("Failure!");
                 return response;
             });
         });
+
+        internalServerError(((request, response) -> {
+
+            String text = "Error while creating a image (HTTP 500).\\n " +
+                          "Check the params for any illegal characters.";
+            String avatarURL = "https://i.imgur.com/qQ8g1Ir.png";
+            String name = "ERROR (500)";
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String format = "dd. MMM yyyy HH:mm:ss zzz";
+
+            String color = "#ff0000";
+
+            try {
+                response.raw().setContentType("image/png");
+                HttpServletResponse raw = response.raw();
+                raw.getOutputStream().write(
+                        ImageUtil.getQuoteImage(
+                                text.replace("\\n", "\\n "),
+                                avatarURL,
+                                name,
+                                timestamp,
+                                format,
+                                color
+                        )
+                );
+                raw.getOutputStream().flush();
+                raw.getOutputStream().close();
+
+                getLogger().info("API-Error! (HTTP 500)");
+                return raw;
+            } catch (IOException ex) {
+                halt();
+            }
+
+            getLogger().error("Failure!");
+            return response;
+        }));
 
         getLogger().info("API started!");
 
