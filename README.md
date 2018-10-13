@@ -46,10 +46,10 @@ Depending on how many letters you use, can it also change the look of the date.
 Example: `dd. MMM yyyy` would return `18. Sep 2018` while `dd.MM.yyyy` would return `18.09.2018`
 
 ### color
-**Syntax**: `color=<integer>`
+**Syntax**: `color=<integer>`  
 **Requires**: Valid integer-value
 
-This lets you change the color of the Name.
+This lets you change the color of the Name.  
 It requires a valid integer-value. (f.e. `1358564` for the hex-color `#14bae4`)
 
 ## How it can be used
