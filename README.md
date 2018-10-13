@@ -4,6 +4,8 @@ It honestly was meant as a "proof of concept" (Profing, that I don't completely 
 
 You can simply connect to https://purrbot.site/api/quote and you'll see this image here as an example:
 
+![](https://purrbot.site/api/quote)
+
 ## Params
 You can provide additional params through the link.  
 The syntax is: `?param1=something&param2=something`.
