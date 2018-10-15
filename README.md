@@ -77,7 +77,7 @@ Change the image that is used as avatar.
 
 Changes, what status-icon is shown on the bottom right of the image.  
 Supported statuses are: `ONLINE`, `IDLE`, `DO_NOT_DISTURB` or `OFFLINE`.  
-If you set a invalid status (or none at all, then it will default to `OFFLINE`.
+If you set a invalid status (or none at all), then it will default to `OFFLINE`.
 
 ## How the links can be used
 **It can be used**:
