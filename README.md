@@ -1,16 +1,17 @@
 # PurrBotAPI
 The **PurrBotAPI** provides different kinds of image-apis that can be used for different kinds of things.
 There are currently 2 API-endpoints available, that can be used.
-Both APIs can be accessed by connecting to `https://purrbot.site/api/<endpoint>` (replace `endpoint with one of the mentioned endpoints)`
+Both APIs can be accessed by connecting to `https://purrbot.site/api/<endpoint>` and do also support params in the link.  
+
+The param-syntax is always `https://purrbot.site/api/<endpoint>?param=<value>&param=<value>&param=<value>&...`
 
 **Notes**: This API isn't perfect and was more meant as a "proof of concept"... to proof I'm not a completely bad developer xD
 
 ## Quote
 **Link**: https://purrbot.site/api/quote
 
-This endpoints allows you to create a image, that - more or less - looks like a message from discord.
+This endpoints allows you to create a image, that - more or less - looks like a message from discord.  
 You can provide different params to change the image.
-The syntax is always `https://purrbot.site/api/quote?param=<value>&param=<value>&param=<value>&...`
 
 The following params can be used:
 
@@ -59,23 +60,23 @@ It requires a valid integer-value. (f.e. `1358564` for the hex-color `#14bae4`)
 ## Status
 **Link**: https://purrbot.site/api/status
 
-This returns an image of the avatar, with a status-icon.
+This returns an image of the avatar, with a status-icon.  
 The default status is offline and the image width and height are 500px.
 
 Following params are supported:
 
 ### avatar
-**Syntax**: `avatar=<https://link.com/image.png>`
+**Syntax**: `avatar=<https://link.com/image.png>`  
 **Requires**: A valid image-link (Should end with .png, .jpeg, .svg, etc.)
 
 Change the image that is used as avatar.
 
 ### status
-**Syntax**: `status=<String>`
+**Syntax**: `status=<String>`  
 **Requires**: Valid online-status (As String)
 
-Changes, what status-icon is shown on the bottom right of the image.
-Supported statuses are: `ONLINE`, `IDLE`, `DO_NOT_DISTURB` or `OFFLINE`.
+Changes, what status-icon is shown on the bottom right of the image.  
+Supported statuses are: `ONLINE`, `IDLE`, `DO_NOT_DISTURB` or `OFFLINE`.  
 If you set a invalid status (or none at all, then it will default to `OFFLINE`.
 
 ## How the links can be used
