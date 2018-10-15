@@ -60,7 +60,7 @@ It requires a valid integer-value. (f.e. `1358564` for the hex-color `#14bae4`)
 **Link**: https://purrbot.site/api/status
 
 This returns an image of the avatar, with a status-icon.
-The default status is offline.
+The default status is offline and the image width and height are 500px.
 
 Following params are supported:
 
