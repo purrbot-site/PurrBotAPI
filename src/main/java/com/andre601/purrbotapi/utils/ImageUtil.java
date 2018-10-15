@@ -1,7 +1,8 @@
-package com.andre601.purrBotQuoter.utils;
+package com.andre601.purrbotapi.utils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -82,7 +83,7 @@ public class ImageUtil {
         finalImg.setColor(new Color(54, 57, 63));
         finalImg.fillRect(0, 0, finalImage.getWidth(), finalImage.getHeight());
 
-        finalImg.drawImage(avatar, 5, 5, 290, 290, null);
+        finalImg.drawImage(avatar, 0, 0, 217, 217, null);
         finalImg.drawImage(overlay, 0, 0, null);
 
         Font nameFont = new Font("Arial", Font.BOLD, 60);
@@ -126,12 +127,74 @@ public class ImageUtil {
         return rawImage;
     }
 
+    public static byte[] getStatusImage(String url, String status) throws Exception{
+        BufferedImage avatar = getUserAvatar(url);
+        BufferedImage statusImg;
+
+        switch(status.toUpperCase()){
+            case "ONLINE":
+                statusImg = ImageIO.read(new File("img/online.png"));
+                break;
+
+            case "DO_NOT_DISTURB":
+                statusImg = ImageIO.read(new File("img/dnd.png"));
+                break;
+
+            case "IDLE":
+                statusImg = ImageIO.read(new File("img/idle.png"));
+                break;
+
+            case "OFFLINE":
+            default:
+                statusImg = ImageIO.read(new File("img/offline.png"));
+                break;
+        }
+
+        BufferedImage image = resize(avatar);
+        int width = image.getWidth();
+
+        BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D img = circleBuffer.createGraphics();
+        img.setClip(new Ellipse2D.Float(0, 0, width, width));
+        img.drawImage(image, 0, 0, width, width, null);
+
+        img.setClip(null);
+
+        int statusImgX = image.getWidth() - statusImg.getWidth();
+        int statusImgY = image.getHeight() - statusImg.getHeight();
+        img.drawImage(statusImg, statusImgX, statusImgY,null);
+
+        img.dispose();
+
+        byte[] rawImage;
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
+            ImageIO.write(circleBuffer, "png", baos);
+
+            baos.flush();
+            rawImage = baos.toByteArray();
+        }
+
+        return rawImage;
+    }
+
     private static BufferedImage resize(BufferedImage image, int newHeight){
 
         BufferedImage output = new BufferedImage(image.getWidth(), newHeight, image.getType());
 
         Graphics2D tmpImg = output.createGraphics();
         tmpImg.drawImage(image, 0, 0, image.getWidth(), newHeight, null);
+        tmpImg.dispose();
+
+        return output;
+
+    }
+
+    private static BufferedImage resize(BufferedImage image){
+
+        BufferedImage output = new BufferedImage(500, 500, image.getType());
+
+        Graphics2D tmpImg = output.createGraphics();
+        tmpImg.drawImage(image, 0, 0, 500, 500, null);
         tmpImg.dispose();
 
         return output;

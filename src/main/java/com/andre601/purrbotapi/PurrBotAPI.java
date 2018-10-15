@@ -1,7 +1,7 @@
-package com.andre601.purrBotQuoter;
+package com.andre601.purrbotapi;
 
 import ch.qos.logback.classic.Logger;
-import com.andre601.purrBotQuoter.utils.ImageUtil;
+import com.andre601.purrbotapi.utils.ImageUtil;
 import org.slf4j.LoggerFactory;
 import spark.Spark;
 
@@ -10,9 +10,9 @@ import java.io.IOException;
 
 import static spark.Spark.*;
 
-public class PurrBotQuoter {
+public class PurrBotAPI {
 
-    public static Logger logger = (Logger)LoggerFactory.getLogger(PurrBotQuoter.class);
+    public static Logger logger = (Logger)LoggerFactory.getLogger(PurrBotAPI.class);
 
     public static void main(String[] args){
 
@@ -34,14 +34,14 @@ public class PurrBotQuoter {
                         "dd. MMM yyyy HH:mm:ss zzz"
                 );
 
-                String color = request.queryParamOrDefault("color", "#ffffff");
+                String color = request.queryParamOrDefault("color", "16777215");
 
                 try {
                     response.raw().setContentType("image/png");
                     HttpServletResponse raw = response.raw();
                     raw.getOutputStream().write(
                             ImageUtil.getQuoteImage(
-                                    text.replace("\\n", "\\n "),
+                                    text,
                                     avatarURL,
                                     name,
                                     timestamp,
@@ -52,15 +52,43 @@ public class PurrBotQuoter {
                     raw.getOutputStream().flush();
                     raw.getOutputStream().close();
 
-                    getLogger().info("Success!");
+                    getLogger().info("Returned Quote-image.");
                     return raw;
                 } catch (IOException ex) {
                     halt("Something went wrong! Check if the Parameters are valid!");
                 }
 
-                getLogger().error("Failure!");
+                getLogger().error("Coudn't create a Quote-image.");
                 return response;
             });
+
+            get("/status", ((request, response) -> {
+                String avatar = request.queryParamOrDefault("avatar",
+                        "https://i.imgur.com/63aniDJ.png"
+                );
+                String status = request.queryParamOrDefault("status", "offline");
+
+                try{
+                    response.raw().setContentType("image/png");
+                    HttpServletResponse raw = response.raw();
+                    raw.getOutputStream().write(
+                            ImageUtil.getStatusImage(
+                                    avatar,
+                                    status
+                            )
+                    );
+                    raw.getOutputStream().flush();
+                    raw.getOutputStream().close();
+
+                    getLogger().info("Returned Status-image.");
+                    return raw;
+                }catch (IOException ex){
+                    halt("Something went wrong! Check if the Parameters are valid!");
+                }
+
+                getLogger().error("Couldn't create a Status-image.");
+                return response;
+            }));
         });
 
         internalServerError(((request, response) -> {

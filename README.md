@@ -1,16 +1,18 @@
-# PurrBotQuoter
-**PurrBotQuoter** is a api made, to create images, that look like being directly taken from Discord itself!  
-It honestly was meant as a "proof of concept" (Profing, that I don't completely suck at java xD)
+# PurrBotAPI
+The **PurrBotAPI** provides different kinds of image-apis that can be used for different kinds of things.
+There are currently 2 API-endpoints available, that can be used.
+Both APIs can be accessed by connecting to `https://purrbot.site/api/<endpoint>` (replace `endpoint with one of the mentioned endpoints)`
 
-You can simply connect to https://purrbot.site/api/quote and you'll see this image here as an example:
+**Notes**: This API isn't perfect and was more meant as a "proof of concept"... to proof I'm not a completely bad developer xD
 
-![](https://purrbot.site/api/quote)
+## Quote
+**Link**: https://purrbot.site/api/quote
 
-## Params
-You can provide additional params through the link.  
-The syntax is: `?param1=something&param2=something`.
+This endpoints allows you to create a image, that - more or less - looks like a message from discord.
+You can provide different params to change the image.
+The syntax is always `https://purrbot.site/api/quote?param=<value>&param=<value>&param=<value>&...`
 
-The following params are available for use:
+The following params can be used:
 
 ### text
 **Syntax**: `text=<text text text ...>`  
@@ -54,7 +56,29 @@ Example: `dd. MMM yyyy` would return `18. Sep 2018` while `dd.MM.yyyy` would ret
 This lets you change the color of the Name.  
 It requires a valid integer-value. (f.e. `1358564` for the hex-color `#14bae4`)
 
-## How it can be used
+## Status
+**Link**: https://purrbot.site/api/status
+
+This returns an image of the avatar, with a status-icon.
+The default status is offline.
+
+Following params are supported:
+
+### avatar
+**Syntax**: `avatar=<https://link.com/image.png>`
+**Requires**: A valid image-link (Should end with .png, .jpeg, .svg, etc.)
+
+Change the image that is used as avatar.
+
+### status
+**Syntax**: `status=<String>`
+**Requires**: Valid online-status (As String)
+
+Changes, what status-icon is shown on the bottom right of the image.
+Supported statuses are: `ONLINE`, `IDLE`, `DO_NOT_DISTURB` or `OFFLINE`.
+If you set a invalid status (or none at all, then it will default to `OFFLINE`.
+
+## How the links can be used
 **It can be used**:
 - to download the image.
 - to show a image-preview in Discord.
