@@ -31,7 +31,7 @@ Will be used as the Name in the image.
 **Syntax**: `avatar=<https://link.com/image.png>`  
 **Requires**: A valid image-link (Should end with .png, .jpeg, .svg, etc.)
 
-Uses the provided link as avatar. The image will be resized to a size of 290x290 pixels.
+Uses the provided link as avatar. The image will be resized to a size of 217x217 pixels.
 
 ### time
 **Syntax**: `time=<time in milliseconds>`  
