@@ -137,6 +137,7 @@ public class ImageUtil {
                 break;
 
             case "DO_NOT_DISTURB":
+            case "DND":
                 statusImg = ImageIO.read(new File("img/dnd.png"));
                 break;
 
