@@ -61,7 +61,7 @@ It requires a valid integer-value. (f.e. `1358564` for the hex-color `#14bae4`)
 **Link**: https://purrbot.site/api/status
 
 This returns an image of the avatar, with a status-icon.  
-The default status is offline and the image width and height are 500px.
+The default status is offline and the image width and height are 950px.
 
 Following params are supported:
 
@@ -69,7 +69,8 @@ Following params are supported:
 **Syntax**: `avatar=<https://link.com/image.png>`  
 **Requires**: A valid image-link (Should end with .png, .jpeg, .svg, etc.)
 
-Change the image that is used as avatar.
+Change the image that is used as avatar.  
+The image will be resized to 950x950px.
 
 ### status
 **Syntax**: `status=<String>`  
@@ -85,4 +86,4 @@ If you set a invalid status (or none at all), then it will default to `OFFLINE`.
 - to show a image-preview in Discord.
 
 **It can NOT be used**:
-- As a valid image-link (To show it in embeds f.e.)
+- As a valid image-link (At least not directly... There are ways, to f.e. use it in embeds, but it can be complicated.)
