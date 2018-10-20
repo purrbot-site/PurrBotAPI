@@ -192,10 +192,10 @@ public class ImageUtil {
 
     private static BufferedImage resize(BufferedImage image){
 
-        BufferedImage output = new BufferedImage(500, 500, image.getType());
+        BufferedImage output = new BufferedImage(950, 950, image.getType());
 
         Graphics2D tmpImg = output.createGraphics();
-        tmpImg.drawImage(image, 0, 0, 500, 500, null);
+        tmpImg.drawImage(image, 0, 0, 950, 950, null);
         tmpImg.dispose();
 
         return output;

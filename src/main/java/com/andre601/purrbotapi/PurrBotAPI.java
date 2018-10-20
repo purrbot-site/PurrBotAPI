@@ -100,7 +100,7 @@ public class PurrBotAPI {
             String timestamp = String.valueOf(System.currentTimeMillis());
             String format = "dd. MMM yyyy HH:mm:ss zzz";
 
-            String color = "#ff0000";
+            String color = "16777215";
 
             try {
                 response.raw().setContentType("image/png");
