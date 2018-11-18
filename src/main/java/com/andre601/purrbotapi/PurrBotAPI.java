@@ -1,26 +1,69 @@
 package com.andre601.purrbotapi;
 
 import ch.qos.logback.classic.Logger;
+import com.andre601.purrbotapi.utils.HttpUtil;
 import com.andre601.purrbotapi.utils.ImageUtil;
 import org.slf4j.LoggerFactory;
 import spark.Spark;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.*;
 
 import static spark.Spark.*;
 
 public class PurrBotAPI {
 
-    public static Logger logger = (Logger)LoggerFactory.getLogger(PurrBotAPI.class);
+    private static Logger logger = (Logger)LoggerFactory.getLogger(PurrBotAPI.class);
+    private static ImageUtil imageUtil;
+    private static HttpUtil httpUtil;
+    private static List<String> imageList = new ArrayList<>();
+    private static Random random = new Random();
 
     public static void main(String[] args){
+
+        imageUtil = new ImageUtil();
+        httpUtil = new HttpUtil();
+
+        Collections.addAll(imageList, httpUtil.getImages(
+                "https://raw.githubusercontent.com/Andre601/PurrBot-files/master/files/welcome-images"
+        ).split("\n"));
 
         Spark.port(2000);
 
         path("/api", () -> {
             before("/*", (q, a) -> getLogger().info("Received API-call!"));
+            get("", (request, response) -> {
+                response.raw().setContentType("application/json");
+
+                return "{" +
+                "\"endpoints\": [" +
+                "{" +
+                "\"name\": \"Quote\"," +
+                "\"path\": \"/api/quote\"," +
+                "\"parameters\": [\"avatar\",\"color\",\"format\",\"name\",\"text\",\"time\"]" +
+                "}," +
+                "{" +
+                "\"name\": \"Status\"," +
+                "\"path\": \"/api/status\"," +
+                "\"parameters\": [\"avatar\",\"status\"]" +
+                "}," +
+                "{" +
+                "\"name\": \"Welcome\"," +
+                "\"path\": \"/api/welcome\"," +
+                "\"parameters\": [\"avatar\",\"color\",\"image\",\"name\",\"size\"]" +
+                "}" +
+                "]," +
+                "\"links\": {" +
+                "\"website\": \"https://purrbot.site\"," +
+                "\"bot\": \"https://github.com/Andre601/PurrBot\"," +
+                "\"api\": \"https://github.com/Andre601/PurrBotAPI\"" +
+                "}" +
+                "}";
+            });
             get("/quote", (request, response) -> {
+
+                getLogger().info("Generate image for quote...");
 
                 String text = request.queryParamOrDefault("text", "Just some text");
                 String avatarURL = request.queryParamOrDefault("avatar",
@@ -40,7 +83,7 @@ public class PurrBotAPI {
                     response.raw().setContentType("image/png");
                     HttpServletResponse raw = response.raw();
                     raw.getOutputStream().write(
-                            ImageUtil.getQuoteImage(
+                            imageUtil.getQuoteImage(
                                     text,
                                     avatarURL,
                                     name,
@@ -52,7 +95,7 @@ public class PurrBotAPI {
                     raw.getOutputStream().flush();
                     raw.getOutputStream().close();
 
-                    getLogger().info("Returned Quote-image.");
+                    getLogger().info("Successfully returned quote-image.");
                     return raw;
                 } catch (IOException ex) {
                     halt("Something went wrong! Check if the Parameters are valid!");
@@ -62,7 +105,10 @@ public class PurrBotAPI {
                 return response;
             });
 
-            get("/status", ((request, response) -> {
+            get("/status", (request, response) -> {
+
+                getLogger().info("Generate status-image...");
+
                 String avatar = request.queryParamOrDefault("avatar",
                         "https://i.imgur.com/63aniDJ.png"
                 );
@@ -72,7 +118,7 @@ public class PurrBotAPI {
                     response.raw().setContentType("image/png");
                     HttpServletResponse raw = response.raw();
                     raw.getOutputStream().write(
-                            ImageUtil.getStatusImage(
+                            imageUtil.getStatusImage(
                                     avatar,
                                     status
                             )
@@ -80,7 +126,7 @@ public class PurrBotAPI {
                     raw.getOutputStream().flush();
                     raw.getOutputStream().close();
 
-                    getLogger().info("Returned Status-image.");
+                    getLogger().info("Successfully returned status-image.");
                     return raw;
                 }catch (IOException ex){
                     halt("Something went wrong! Check if the Parameters are valid!");
@@ -88,7 +134,43 @@ public class PurrBotAPI {
 
                 getLogger().error("Couldn't create a Status-image.");
                 return response;
-            }));
+            });
+
+            get("/welcome", (request, response) -> {
+                getLogger().info("Generate welcome-image...");
+
+                String name = request.queryParamOrDefault("name", "Someone");
+                String avatar = request.queryParamOrDefault("avatar",
+                        "https://i.imgur.com/63aniDJ.png"
+                );
+                String image = request.queryParamOrDefault("image", "purr");
+                String color = request.queryParamOrDefault("color", "hex:#ffffff");
+                long size = Long.valueOf(request.queryParamOrDefault("size", "1"));
+
+                try{
+                    response.raw().setContentType("image/png");
+                    HttpServletResponse raw = response.raw();
+                    raw.getOutputStream().write(
+                            imageUtil.getWelcomeImage(
+                                    image,
+                                    name,
+                                    avatar,
+                                    color,
+                                    size
+                            )
+                    );
+                    raw.getOutputStream().flush();
+                    raw.getOutputStream().close();
+
+                    getLogger().info("Successfully returned welcome-image.");
+                    return raw;
+                }catch (Exception ex){
+                    halt("Something went wrong! Check if the Parameters are valid!");
+                }
+
+                getLogger().error("Couldn't create a welcome-image.");
+                return response;
+            });
         });
 
         internalServerError(((request, response) -> {
@@ -106,7 +188,7 @@ public class PurrBotAPI {
                 response.raw().setContentType("image/png");
                 HttpServletResponse raw = response.raw();
                 raw.getOutputStream().write(
-                        ImageUtil.getQuoteImage(
+                        imageUtil.getQuoteImage(
                                 text.replace("\\n", "\\n "),
                                 avatarURL,
                                 name,
@@ -134,5 +216,19 @@ public class PurrBotAPI {
 
     public static Logger getLogger(){
         return logger;
+    }
+
+    public static List<String> getImageList(){
+        return imageList;
+    }
+
+    public static Random getRandom(){
+        return random;
+    }
+
+    public static String getRandomImage(){
+        return PurrBotAPI.getImageList().size() > 0 ? PurrBotAPI.getImageList().get(
+                PurrBotAPI.getRandom().nextInt(PurrBotAPI.getImageList().size())
+        ) : "purr";
     }
 }
