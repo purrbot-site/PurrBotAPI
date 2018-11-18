@@ -18,33 +18,33 @@ You can provide different params to change the image.
 The following params can be used:
 
 ### avatar
-**Syntax**: `avatar=<https://link.com/image.png>`
+**Syntax**: `avatar=<https://link.com/image.png>`  
 **Requires**: A valid image-link (Should end with .png, .jpeg, .svg, etc.)
 
 Uses the provided link as avatar. The image will be resized to a size of 217x217 pixels.
 
 ### color
-**Syntax**: `color=<rgb:r,g,b|hex:rrggbb|integer>`
+**Syntax**: `color=<rgb:r,g,b|hex:rrggbb|integer>`  
 **Requires**: Valid rgb, hex or integer value
 
-This lets you change the color of the Name.
-You can use a hex, rgb or integer-value to define it.
-Hex and rgb colors need to be prefixed with either `hex:` or `rgb:`, followed by the value.
-* `hex` is a hexadecimal value (without the #). Example: `hex:ff0000`
-* `rgb` is a comma-seperated value. Example: `rgb:255,0,0`
+This lets you change the color of the Name.  
+You can use a hex, rgb or integer-value to define it.  
+Hex and rgb colors need to be prefixed with either `hex:` or `rgb:`, followed by the value.  
+* `hex` is a hexadecimal value (without the #). Example: `hex:ff0000`  
+* `rgb` is a comma-seperated value. Example: `rgb:255,0,0`  
 * The integer is the "raw" color value (calculated in java). Example: `1358564` for the hex-color `#14bae4`
 
 ### format
-**Syntax**: `format=<supported date-format>`
+**Syntax**: `format=<supported date-format>`  
 **Requires**: Valid String (date-format)
 
-Lets you change the format/syntax of the date.
-You can use `s` for seconds, `m` for minutes, `H` for hours, `d` for days, `M` for months, `y` for years and `z` for the timezone.
-Depending on how many letters you use, can it also change the look of the date.
+Lets you change the format/syntax of the date.  
+You can use `s` for seconds, `m` for minutes, `H` for hours, `d` for days, `M` for months, `y` for years and `z` for the timezone.  
+Depending on how many letters you use, can it also change the look of the date.  
 Example: `dd. MMM yyyy` would return `18. Sep 2018` while `dd.MM.yyyy` would return `18.09.2018`
 
 ### name
-**Syntax**: `name=<text>`
+**Syntax**: `name=<text>`  
 **Requires**: String
 
 Will be used as the Name in the image.
@@ -84,49 +84,49 @@ The image will be resized to 950x950px.
 **Requires**: Valid online-status (As String)
 
 Changes, what status-icon is shown on the bottom right of the image.  
-Supported statuses are: `ONLINE`, `IDLE`, `DO_NOT_DISTURB`/`DND` or `OFFLINE`.
+Supported statuses are: `ONLINE`, `IDLE`, `DO_NOT_DISTURB`/`DND` or `OFFLINE`.  
 If you set a invalid status (or none at all), then it will default to `OFFLINE`.
 
 ----
 ## Welcome
 **Link**: https://purrbot.site/api/welcome
 
-Returns a welcome image with avatar, username, guildcount and a background.
+Returns a welcome image with avatar, username, guildcount and a background.  
 Default is `purr` as background.
 
 ### avatar
-**Syntax**: `avatar=<https://link.com/image.png>`
+**Syntax**: `avatar=<https://link.com/image.png>`  
 **Requires**: A valid image-link (Should end with .png, .jpeg, .svg, etc.)
 
-Change the image that is used as avatar.
+Change the image that is used as avatar.  
 The image will be resized to 290x290px.
 
 ### color
-**Syntax**: `color=<rgb:r,g,b|hex:rrggbb|integer>`
+**Syntax**: `color=<rgb:r,g,b|hex:rrggbb|integer>`  
 **Requires**: Valid rgb, hex or integer value
 
-Changes the text color.
-You can use a hex, rgb or integer-value to define it.
-Hex and rgb colors need to be prefixed with either `hex:` or `rgb:`, followed by the value.
-* `hex` is a hexadecimal value (without the #). Example: `hex:ff0000`
-* `rgb` is a comma-seperated value. Example: `rgb:255,0,0`
+Changes the text color.  
+You can use a hex, rgb or integer-value to define it.  
+Hex and rgb colors need to be prefixed with either `hex:` or `rgb:`, followed by the value.  
+* `hex` is a hexadecimal value (without the #). Example: `hex:ff0000`  
+* `rgb` is a comma-seperated value. Example: `rgb:255,0,0`  
 * The integer is the "raw" color value (calculated in java). Example: `1358564` for the hex-color `#14bae4`
 
 ### image
-**Syntax**: `image=<string>`
+**Syntax**: `image=<string>`  
 **Requires**: Valid String (image-name)
 
-Changes the background of the image.
+Changes the background of the image.  
 A list of available images can be found [here](https://github.com/Andre601/PurrBot/wiki/Welcome-images).
 
 ### name
-**Syntax**: `name=<text>`
+**Syntax**: `name=<text>`  
 **Requires**: String
 
 Will be used as the Name in the image.
 
 ### size
-**Syntax**: `size=<number>`
+**Syntax**: `size=<number>`  
 **Requires**: Integer
 
 Changes the number in `You're user #<number>`
