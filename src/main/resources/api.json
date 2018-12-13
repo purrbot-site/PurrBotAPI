@@ -1,0 +1,53 @@
+{
+  "endpoints": [
+    {
+      "name": "quote",
+      "path": "/api/quote",
+      "parameters": [
+        "avatar",
+        "color",
+        "format",
+        "name",
+        "text",
+        "time"
+      ]
+    },
+    {
+      "name": "status",
+      "path": "/api/status",
+      "parameters": [
+        "avatar",
+        "status"
+      ]
+    },
+    {
+      "name": "welcome",
+      "path": "/api/quote",
+      "parameters": [
+        "avatar",
+        "color",
+        "image",
+        "name",
+        "size"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "name": "base-url",
+      "link": "https://purrbot.site/api"
+    },
+    {
+      "name": "purrbot-github",
+      "link": "https://github.com/Andre601/PurrBot"
+    },
+    {
+      "name": "puttbotapi-github",
+      "link": "https://github.com/Andre601/PurrBotAPI"
+    },
+    {
+      "name": "website",
+      "link": "https://purrbot.site"
+    }
+  ]
+}

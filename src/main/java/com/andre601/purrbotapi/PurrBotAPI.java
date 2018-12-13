@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Logger;
 import com.andre601.purrbotapi.utils.HttpUtil;
 import com.andre601.purrbotapi.utils.ImageUtil;
 import org.slf4j.LoggerFactory;
+import spark.Redirect;
 import spark.Spark;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,37 +31,12 @@ public class PurrBotAPI {
         ).split("\n"));
 
         Spark.port(2000);
+        staticFiles.location("");
+        redirect.get("api", "api.html", Redirect.Status.PERMANENT_REDIRECT);
+        init();
 
         path("/api", () -> {
             before("/*", (q, a) -> getLogger().info("Received API-call!"));
-            get("", (request, response) -> {
-                response.raw().setContentType("application/json");
-
-                return "{" +
-                "\"endpoints\": [" +
-                "{" +
-                "\"name\": \"Quote\"," +
-                "\"path\": \"/api/quote\"," +
-                "\"parameters\": [\"avatar\",\"color\",\"format\",\"name\",\"text\",\"time\"]" +
-                "}," +
-                "{" +
-                "\"name\": \"Status\"," +
-                "\"path\": \"/api/status\"," +
-                "\"parameters\": [\"avatar\",\"status\"]" +
-                "}," +
-                "{" +
-                "\"name\": \"Welcome\"," +
-                "\"path\": \"/api/welcome\"," +
-                "\"parameters\": [\"avatar\",\"color\",\"image\",\"name\",\"size\"]" +
-                "}" +
-                "]," +
-                "\"links\": {" +
-                "\"website\": \"https://purrbot.site\"," +
-                "\"bot\": \"https://github.com/Andre601/PurrBot\"," +
-                "\"api\": \"https://github.com/Andre601/PurrBotAPI\"" +
-                "}" +
-                "}";
-            });
             get("/quote", (request, response) -> {
 
                 getLogger().info("Generate image for quote...");
