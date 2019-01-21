@@ -151,7 +151,7 @@ public class PurrBotAPI {
 
         internalServerError(((request, response) -> {
 
-            String text = "Error while creating a image (HTTP 500).\\n " +
+            String text = "Error while creating a image (HTTP 500).\\n" +
                           "Check the params for any illegal characters.";
             String avatarURL = "https://i.imgur.com/qQ8g1Ir.png";
             String name = "ERROR (500)";

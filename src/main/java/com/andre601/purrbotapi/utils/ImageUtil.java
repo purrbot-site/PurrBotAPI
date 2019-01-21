@@ -56,23 +56,59 @@ public class ImageUtil {
         List<String> msg = new ArrayList<>();
         int lines = 1;
         for(String a : quote){
+
+            if(a.contains("\n")){
+                if(a.endsWith("\n")) {
+                    a = a.replace("\n", "");
+
+                    if(img.getFontMetrics(textFont).stringWidth(str + " " + a) >= 1500) {
+                        msg.add(str);
+                        str = "";
+                        sb = new StringBuilder();
+                        lines++;
+                    }
+
+                    sb.append(a);
+                    str = sb.toString();
+                    msg.add(str);
+                    str = "";
+                    sb = new StringBuilder();
+                    lines++;
+                    continue;
+                }else{
+
+                    String word0 = a.split("\n")[0];
+                    String word1 = a.split("\n")[1];
+
+                    if(img.getFontMetrics(textFont).stringWidth(str + " " + word0) >= 1500) {
+                        msg.add(str);
+                        str = "";
+                        sb = new StringBuilder();
+                        lines++;
+                    }
+
+                    sb.append(word0);
+                    str = sb.toString();
+                    msg.add(str);
+                    str = "";
+                    sb = new StringBuilder();
+                    lines++;
+
+                    if(word1.equals("") || word1.isEmpty()) {
+                        continue;
+                    }
+
+                    sb.append(word1).append(" ");
+                    str = sb.toString();
+                    continue;
+                }
+            }
+
             if(img.getFontMetrics(textFont).stringWidth(str + " " + a) >= 1500) {
                 msg.add(str);
                 str = "";
                 sb = new StringBuilder();
                 lines++;
-            }
-
-            if(a.endsWith("\\n")){
-                a = a.replace("\\n", "");
-
-                sb.append(a);
-                str = sb.toString();
-                msg.add(str);
-                str = "";
-                sb = new StringBuilder();
-                lines++;
-                continue;
             }
 
             sb.append(a).append(" ");

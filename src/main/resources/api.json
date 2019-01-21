@@ -1,8 +1,10 @@
 {
+  "base-url": "https://purrbot.site/api",
   "endpoints": [
     {
       "name": "quote",
-      "path": "/api/quote",
+      "description": "Returns a image that looks like a message from a discord-user",
+      "path": "/quote",
       "parameters": [
         "avatar",
         "color",
@@ -14,7 +16,8 @@
     },
     {
       "name": "status",
-      "path": "/api/status",
+      "description": "Returns a user-avatar with a status-icon.",
+      "path": "/status",
       "parameters": [
         "avatar",
         "status"
@@ -22,7 +25,8 @@
     },
     {
       "name": "welcome",
-      "path": "/api/quote",
+      "description": "Returns awelcome image with the users avatar, name and guild-count.",
+      "path": "/welcome",
       "parameters": [
         "avatar",
         "color",
