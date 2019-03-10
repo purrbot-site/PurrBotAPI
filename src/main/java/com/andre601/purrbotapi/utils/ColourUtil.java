@@ -2,9 +2,9 @@ package com.andre601.purrbotapi.utils;
 
 import java.awt.Color;
 
-public class ColorUtil {
+class ColourUtil{
 
-    public static Color toColor(String input){
+    static Color toColor(String input){
         Color result;
         if(!input.startsWith("hex") && !input.startsWith("rgb")){
             try{

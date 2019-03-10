@@ -49,7 +49,7 @@ public class ImageUtil {
 
         Graphics2D img = image.createGraphics();
 
-        Color nameColor = ColorUtil.toColor(color);
+        Color nameColor = ColourUtil.toColor(color);
 
         StringBuilder sb = new StringBuilder();
         String str = "";
@@ -241,7 +241,7 @@ public class ImageUtil {
         //  Creating the font for the custom text.
         Font text = new Font("Arial", Font.PLAIN, 85);
 
-        Color color = ColorUtil.toColor(colorString);
+        Color color = ColourUtil.toColor(colorString);
         if(color == null) color = Color.WHITE;
 
         graphic.setColor(color);

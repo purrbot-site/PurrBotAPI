@@ -31,9 +31,6 @@ public class PurrBotAPI {
         ).split("\n"));
 
         Spark.port(2000);
-        staticFiles.location("");
-        redirect.get("api", "api.html", Redirect.Status.PERMANENT_REDIRECT);
-        init();
 
         path("/api", () -> {
             before("/*", (q, a) -> getLogger().info("Received API-call!"));
@@ -190,7 +187,7 @@ public class PurrBotAPI {
 
     }
 
-    public static Logger getLogger(){
+    private static Logger getLogger(){
         return logger;
     }
 
@@ -198,7 +195,7 @@ public class PurrBotAPI {
         return imageList;
     }
 
-    public static Random getRandom(){
+    private static Random getRandom(){
         return random;
     }
 
