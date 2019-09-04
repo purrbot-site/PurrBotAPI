@@ -13,7 +13,7 @@ avatar | URL            | The avatar of the user                                
 color  | String/Integer | Color of name. Requires either `hex:rrggbb`, `rgb:r,g,b` or an inter value |
 format | String         | Format for the date. Can be f.e. MM-dd-yyyy or dd MMM yyyy                 |
 name   | String         | Name of the user                                                           |
-text   | String         | The message of the user                                                    |
+string   | String         | The message of the user                                                    |
 time   | Integer        | The time as echo time milis                                                |
 
 ## GET /status
