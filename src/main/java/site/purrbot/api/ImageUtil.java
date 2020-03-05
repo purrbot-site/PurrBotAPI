@@ -3,6 +3,9 @@ package site.purrbot.api;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import site.purrbot.api.endpoints.Quote;
+import site.purrbot.api.endpoints.Status;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
@@ -35,11 +38,12 @@ class ImageUtil {
                         response.code(),
                         response.message()
                 ));
-
-            if(response.body() == null)
+    
+            ResponseBody body = response.body();
+            if(body == null)
                 throw new NullPointerException("Received empty body.");
 
-            return response.body().bytes();
+            return body.bytes();
         }
     }
 
@@ -57,179 +61,173 @@ class ImageUtil {
         return avatar;
     }
 
-    byte[] getQuote(String text, String avatarUrl, String name, String time, String format, String color) throws IOException{
-        BufferedImage avatar = getAvatar(avatarUrl, 217);
-
-        String[] quote = text.split(" ");
-
+    byte[] getQuote(Quote quote) throws IOException{
+        BufferedImage ava = getAvatar(quote.getAvatar(), 217);
+        
+        String[] text = quote.getMessage().split("\\s");
+        
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 55);
         BufferedImage image = new BufferedImage(1920, 300, BufferedImage.TYPE_INT_ARGB);
-
+        
         Graphics2D img = image.createGraphics();
-        Color col = getColor(color);
-
-        String message = "";
+        Color color = getColor(quote.getNameColor());
+        
+        String msg = "";
         List<String> messages = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
-        Integer lines = 1;
-
-        for(String s : quote){
+        int lines = 1;
+        
+        for(String s : text){
             if(s.contains("\n")){
                 if(s.endsWith("\n")){
                     s = s.replace("\n", "");
-                    if(img.getFontMetrics(font).stringWidth(message + " " + s) >= 1500){
-                        messages.add(message);
-
+                    if(img.getFontMetrics(font).stringWidth(msg + " " + s) >= 1500){
+                        messages.add(msg);
                         builder = new StringBuilder();
-
                         lines++;
                     }
-
+                    
                     builder.append(s);
-                    message = builder.toString();
-                    messages.add(message);
-
+                    msg = builder.toString();
+                    messages.add(msg);
+                    
                     builder = new StringBuilder();
-
                     lines++;
-                    continue;
                 }else{
                     String before = s.split("\n")[0];
                     String after = s.split("\n")[1];
-
-                    if(img.getFontMetrics(font).stringWidth(message + " " + before) >= 1500){
-                        messages.add(message);
-
+                    
+                    if(img.getFontMetrics(font).stringWidth(msg + " " + before) >= 1500){
+                        messages.add(msg);
                         builder = new StringBuilder();
-
                         lines++;
                     }
-
+                    
                     builder.append(before);
-                    message = builder.toString();
-                    messages.add(message);
-
-                    message = "";
+                    msg = builder.toString();
+                    messages.add(msg);
+                    
+                    msg = "";
                     builder = new StringBuilder();
-
+                    
                     lines++;
-
+                    
                     if(after.isEmpty())
                         continue;
-
+                    
                     builder.append(after).append(" ");
-                    message = builder.toString();
-                    continue;
+                    msg = builder.toString();
                 }
+                continue;
             }
-
-            if(img.getFontMetrics(font).stringWidth(message + " " + s) >= 1500){
-                messages.add(message);
-
+            
+            if(img.getFontMetrics(font).stringWidth(msg + " " + s) >= 1500){
+                messages.add(msg);
                 builder = new StringBuilder();
-
                 lines++;
             }
-
+            
             builder.append(s).append(" ");
-            message = builder.toString();
+            msg = builder.toString();
         }
-
-        messages.add(message);
-
+        
+        messages.add(msg);
+        
         int height = 110 + (lines * 60);
-
-        image = resize(image, height > image.getHeight() ? height : image.getHeight());
+        
+        image = resize(image, Math.max(height, image.getHeight()));
         img = image.createGraphics();
-
+        
         img.setColor(new Color(0x36393F));
         img.fillRect(0, 0, image.getWidth(), image.getHeight());
-
-        img.drawImage(avatar, 10, 10, null);
-
-        Font fName = new Font(Font.SANS_SERIF, Font.BOLD, 60);
-        Font fDate = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
-
-        if(col == null)
-            col = new Color(0xFFFFFF);
-
-        img.setColor(col);
-        img.setFont(fName);
-
-        img.drawString(name, 290, 65);
-
-        Date date = new Date(Long.parseLong(time));
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        time = dateFormat.format(date);
-
+        
+        img.drawImage(ava, 10, 10, null);
+        
+        Font fontName = new Font(Font.SANS_SERIF, Font.BOLD, 60);
+        Font fontDate = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        
+        if(color == null)
+            color = Color.WHITE;
+        
+        img.setColor(color);
+        img.setFont(fontName);
+        
+        img.drawString(quote.getUsername(), 290, 65);
+        
+        long timestamp = Long.parseLong(quote.getTimestamp());
+        
+        Date date = new Date(timestamp);
+        SimpleDateFormat df = new SimpleDateFormat(quote.getDateFormat());
+        String time = df.format(date);
+        
         img.setColor(new Color(0x67717A));
-        img.setFont(fDate);
-
-        int positionX = 300 + img.getFontMetrics(fName).stringWidth(name);
-
-        img.drawString(time, positionX, 65);
-
-        img.setColor(new Color(0xFFFFFF));
+        img.setFont(fontDate);
+        
+        int posX = 300 + img.getFontMetrics(fontName).stringWidth(quote.getUsername());
+        
+        img.drawString(time, posX, 65);
+        
+        img.setColor(Color.WHITE);
         img.setFont(font);
-
-        int positionY = 150;
+        
+        int posY = 150;
         for(String s : messages){
-            img.drawString(s, 290, positionY);
-            positionY = positionY + 60;
+            img.drawString(s, 290, posY);
+            posY += 60;
         }
-
+        
         img.dispose();
-
+        
         byte[] raw;
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
             ImageIO.write(image, "png", baos);
-
+            
             baos.flush();
             raw = baos.toByteArray();
         }
-
+        
         return raw;
     }
 
-    byte[] getStatus(String url, String status) throws IOException{
-        BufferedImage avatar = getAvatar(url, 950);
+    byte[] getStatus(Status status) throws IOException{
+        
+        BufferedImage ava = getAvatar(status.getAvatar(), 950);
         BufferedImage statusImg;
-
-        switch(status.toLowerCase()){
+        switch(status.getStatus().toLowerCase()){
             case "online":
                 statusImg = ImageIO.read(new File("img/status/online.png"));
                 break;
-
+            
             case "idle":
                 statusImg = ImageIO.read(new File("img/status/idle.png"));
                 break;
-
-            case "dnd":
+            
             case "do_not_disturb":
+            case "dnd":
                 statusImg = ImageIO.read(new File("img/status/dnd.png"));
                 break;
-
+            
             case "offline":
             default:
-                statusImg = ImageIO.read(new File("img/status/online.png"));
+                statusImg = ImageIO.read(new File("img/status/offline.png"));
         }
-
-        Graphics2D img = avatar.createGraphics();
-
-        int x = avatar.getWidth() - statusImg.getWidth();
-        int y = avatar.getHeight() - statusImg.getHeight();
-
+        
+        Graphics2D img = ava.createGraphics();
+        
+        int x = ava.getWidth() - statusImg.getWidth();
+        int y = ava.getHeight() - statusImg.getHeight();
+        
         img.drawImage(statusImg, x, y, null);
         img.dispose();
-
+        
         byte[] raw;
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
-            ImageIO.write(avatar, "png", baos);
-
+            ImageIO.write(ava, "png", baos);
+            
             baos.flush();
             raw = baos.toByteArray();
         }
-
+        
         return raw;
     }
 
@@ -247,7 +245,7 @@ class ImageUtil {
         Color color;
         if(!input.toLowerCase().startsWith("hex:") && !input.toLowerCase().startsWith("rgb:")){
             try{
-                color = new Color(Integer.valueOf(input));
+                color = new Color(Integer.parseInt(input));
             }catch(Exception ex){
                 color = null;
             }
@@ -274,7 +272,7 @@ class ImageUtil {
                     return null;
 
                 try{
-                    color = new Color(Integer.valueOf(rgb[0], Integer.valueOf(rgb[1], Integer.valueOf(rgb[2]))));
+                    color = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
                 }catch(Exception ex){
                     color = null;
                 }
