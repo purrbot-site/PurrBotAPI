@@ -6,7 +6,7 @@ public class Quote{
     
     private String avatar = "https://i.imgur.com/63aniDJ.png";
     @SerializedName(value = "nameColor", alternate = {"color"})
-    private String nameColor = "#ffffff";
+    private String nameColor = "hex:ffffff";
     @SerializedName(value = "dateFormat", alternate = {"format"})
     private String dateFormat = "dd. MMM yyyy hh:mm:ss zzz";
     @SerializedName(value = "username", alternate = {"name"})
