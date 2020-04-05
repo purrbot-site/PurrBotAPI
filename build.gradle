@@ -4,13 +4,16 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'idea'
 }
-mainClassName = 'site.purrbot.api.PurrBotAPI'
-version = '2.0.0'
 
-description = """"""
+version = '2.0.1'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+application {
+    mainClassName = 'site.purrbot.api.PurrBotAPI'
+}
+
+jar {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     jcenter()
