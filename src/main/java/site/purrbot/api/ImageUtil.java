@@ -192,26 +192,27 @@ class ImageUtil {
     byte[] getStatus(Status status) throws IOException{
         
         BufferedImage ava = getAvatar(status.getAvatar(), 950);
-        BufferedImage statusImg;
+        String type;
         switch(status.getStatus().toLowerCase()){
             case "online":
-                statusImg = ImageIO.read(new File("img/status/online.png"));
+                type = status.isMobile() ? "online_mobile" : "online";
                 break;
             
             case "idle":
-                statusImg = ImageIO.read(new File("img/status/idle.png"));
+                type = status.isMobile() ? "idle_mobile" : "idle";
                 break;
             
             case "do_not_disturb":
             case "dnd":
-                statusImg = ImageIO.read(new File("img/status/dnd.png"));
+                type = status.isMobile() ? "dnd_mobile" : "dnd";
                 break;
             
             case "offline":
             default:
-                statusImg = ImageIO.read(new File("img/status/offline.png"));
+                type = "offline";
         }
-        
+    
+        BufferedImage statusImg = ImageIO.read(new File("img/status/" + type + ".png"));
         Graphics2D img = ava.createGraphics();
         
         int x = ava.getWidth() - statusImg.getWidth();
