@@ -57,4 +57,4 @@ The error is returned as a normal JSON response which may look something like th
 
 ## Additional links
 * [PurrBot](https://github.com/Andre601/PurrBot)
-* [Wiki](https://github.com/Andre601/PurrBot/wiki)
+* [Wiki](https://docs.purrbot.site/bot)
