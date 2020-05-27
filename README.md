@@ -11,14 +11,14 @@ The PurrBotAPI is an API to create dynamically generated images based on provide
 ## POST /quote
 Returns a image that looks similar to a discord message of a user.
 
-| Field      | Description                                                                | Default                           |
-| ---------- | -------------------------------------------------------------------------- | --------------------------------- |
-| avatar     | The avatar of the user                                                     | `https://i.imgur.com/63aniDJ.png` |
-| nameColor  | Color of name. Requires either `hex:rrggbb`, `rgb:r,g,b` or an inter value | `#ffffff`                         |
-| dateFormat | Format for the date. Can be f.e. `MM/dd/yyyy` or `dd. MM. yyyy`            | `dd. MMM yyyy hh:mm:ss`           |
-| username   | Name of the user                                                           | `Someone`                         |
-| message    | The message of the user                                                    | `Some message`                    |
-| timestamp  | The time as echo time millis                                               | `<Current time of request>`       |
+| Field      | Description                                                                | Default                                         |
+| ---------- | -------------------------------------------------------------------------- | ----------------------------------------------- |
+| avatar     | The avatar of the user                                                     | https://purrbot.site/assets/img/api/unknown.png |
+| nameColor  | Color of name. Requires either `hex:rrggbb`, `rgb:r,g,b` or an inter value | `#ffffff`                                       |
+| dateFormat | Format for the date. Can be f.e. `MM/dd/yyyy` or `dd. MM. yyyy`            | `dd. MMM yyyy hh:mm:ss zzz`                     |
+| username   | Name of the user                                                           | `Someone`                                       |
+| message    | The message of the user                                                    | `Some message`                                  |
+| timestamp  | The time as echo time millis                                               | `<Current time of request>`                     |
 
 ### Example JSON request
 ```json
@@ -32,10 +32,11 @@ Returns a image that looks similar to a discord message of a user.
 ## POST /status
 Returns a image of an avatar with an status-icon.
 
-| Field  | Type           | Description                                                                                | Default                           |
-| ------ | -------------- | ------------------------------------------------------------------------------------------ | --------------------------------- |
-| avatar | URL            | The avatar of the user                                                                     | `https://i.imgur.com/63aniDJ.png` |
-| status | String         | The status for the icon. Can be `online`, `idle`, `do_not_disturb` (or `dnd`) or `offline` | `offline`                         |
+| Field  | Type    | Description                                                                                             | Default                                         |
+| ------ | ------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| avatar | URL     | The avatar of the user.                                                                                 | https://purrbot.site/assets/img/api/unknown.png |
+| status | String  | The status for the icon. Can be `online`, `idle`, `do_not_disturb` (or `dnd`) or `offline`.             | `offline`                                       |
+| mobile | Boolean | If the user is on mobile. This will change the icon to the one used on Discord to indicate mobile user. | `false`                                         |
 
 ### Example JSON request
 ```json
