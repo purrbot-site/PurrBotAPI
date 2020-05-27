@@ -16,7 +16,7 @@ import static spark.Spark.*;
 
 public class PurrBotAPI {
 
-    private Logger logger = (Logger)LoggerFactory.getLogger(PurrBotAPI.class);
+    private final Logger logger = (Logger)LoggerFactory.getLogger(PurrBotAPI.class);
 
     private ImageUtil imageUtil;
 
@@ -25,6 +25,8 @@ public class PurrBotAPI {
     }
 
     private void start(){
+        logger.info("Starting PurrBotAPI API_VERSION");
+        
         imageUtil = new ImageUtil();
 
         Spark.port(2000);

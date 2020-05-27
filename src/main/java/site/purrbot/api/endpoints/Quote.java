@@ -2,12 +2,12 @@ package site.purrbot.api.endpoints;
 
 public class Quote{
     
-    private String avatar = "https://i.imgur.com/63aniDJ.png";
-    private String nameColor = "hex:ffffff";
-    private String dateFormat = "dd. MMM yyyy hh:mm:ss zzz";
-    private String username = "Someone";
-    private String message = "Some message.";
-    private String timestamp = String.valueOf(System.currentTimeMillis());
+    private final String avatar = "https://purrbot.site/assets/img/api/unknown.png";
+    private final String nameColor = "hex:ffffff";
+    private final String dateFormat = "dd. MMM yyyy hh:mm:ss zzz";
+    private final String username = "Someone";
+    private final String message = "Some message.";
+    private final long timestamp = System.currentTimeMillis();
     
     public String getAvatar(){
         return avatar;
@@ -29,7 +29,7 @@ public class Quote{
         return message;
     }
     
-    public String getTimestamp(){
+    public long getTimestamp(){
         return timestamp;
     }
 }

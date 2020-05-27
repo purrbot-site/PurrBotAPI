@@ -3,9 +3,10 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'idea'
+    id 'net.kyori.blossom' version '1.1.0'
 }
 
-version = '2.1.0'
+version = '2.2.0'
 
 application {
     mainClassName = 'site.purrbot.api.PurrBotAPI'
@@ -40,6 +41,10 @@ tasks.withType(JavaCompile) {
 
 artifacts {
     archives shadowJar
+}
+
+blossom {
+    replaceToken 'API_VERSION', version
 }
 
 shadowJar {

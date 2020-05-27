@@ -154,7 +154,7 @@ class ImageUtil {
         
         img.drawString(quote.getUsername(), 290, 65);
         
-        long timestamp = Long.parseLong(quote.getTimestamp());
+        long timestamp = quote.getTimestamp();
         
         Date date = new Date(timestamp);
         SimpleDateFormat df = new SimpleDateFormat(quote.getDateFormat());
@@ -205,6 +205,10 @@ class ImageUtil {
             case "do_not_disturb":
             case "dnd":
                 type = status.isMobile() ? "dnd_mobile" : "dnd";
+                break;
+            
+            case "streaming":
+                type = status.isMobile() ? "streaming_mobile" : "streaming";
                 break;
             
             case "offline":
