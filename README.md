@@ -32,11 +32,11 @@ Returns a image that looks similar to a discord message of a user.
 ## POST /status
 Returns a image of an avatar with an status-icon.
 
-| Field      | Type    | Description                                                                                                                    | Default                                         |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
-| avatar     | String  | The URL of the avatar to display.                                                                                              | https://purrbot.site/assets/img/api/unknown.png |
-| mobile     | Boolean | If the user is on mobile. `true` will change the icon to the one used in Discord to indicate a mobile user (Small smartphone). | `false`                                         |
-| status     | String  | The status to set as icon. Can be `online`, `idle`, `do_not_disturb` (or `dnd`), `streaming` or `offline`                      | `offline`                                       |
+| Field  | Type    | Description                                                                                                                    | Default                                         |
+| ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| avatar | String  | The URL of the avatar to display.                                                                                              | https://purrbot.site/assets/img/api/unknown.png |
+| mobile | Boolean | If the user is on mobile. `true` will change the icon to the one used in Discord to indicate a mobile user (Small smartphone). | `false`                                         |
+| status | String  | The status to set as icon. Can be `online`, `idle`, `do_not_disturb` (or `dnd`), `streaming` or `offline`                      | `offline`                                       |
 
 ### Example JSON request
 ```json
