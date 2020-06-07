@@ -9,7 +9,7 @@ The PurrBotAPI is an API to create dynamically generated images based on provide
 > https://purrbot.site/api
 
 ## POST /quote
-Returns a image that looks similar to a discord message of a user.
+Returns an image that looks similar to a discord message of a user.
 
 | Field      | Type   | Description                                                                 | Default                                         |
 | ---------- | ------ | --------------------------------------------------------------------------- | ----------------------------------------------- |
@@ -30,7 +30,7 @@ Returns a image that looks similar to a discord message of a user.
 ```
 
 ## POST /status
-Returns a image of an avatar with an status-icon.
+Returns an image of an avatar with an status-icon.
 
 | Field  | Type    | Description                                                                                                                    | Default                                         |
 | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
@@ -47,7 +47,7 @@ Returns a image of an avatar with an status-icon.
 ```
 
 ## Errors
-The site might return a 403 (Unauthorized) or 500 (Internal Server error) error when the request either contains invalid JSON (or none at all) or an exception happened on creating the image.  
+The site might return a 403 (Unauthorized) or 500 (Internal Server error) error code when the request either contains invalid JSON (or none at all) or an exception happened on creating the image.  
 The error is returned as a normal JSON response which may look something like this:  
 ```json
 {
@@ -57,5 +57,5 @@ The error is returned as a normal JSON response which may look something like th
 ```
 
 ## Additional links
-* [PurrBot](https://github.com/Andre601/PurrBot)
-* [Wiki](https://docs.purrbot.site/bot)
+* [PurrBot](https://github.com/purrbot-site/PurrBot)
+* [Wiki](https://docs.purrbot.site/api)

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import site.purrbot.api.endpoints.Quote;
 import site.purrbot.api.endpoints.Status;
+import spark.Redirect;
 import spark.Response;
 import spark.Spark;
 
@@ -17,6 +18,7 @@ import static spark.Spark.*;
 public class PurrBotAPI {
 
     private final Logger logger = (Logger)LoggerFactory.getLogger(PurrBotAPI.class);
+    private final String docs_url = "https://docs.purrbot.site/api/purrbotapi";
 
     private ImageUtil imageUtil;
 
@@ -33,6 +35,11 @@ public class PurrBotAPI {
 
         path("/api", () -> {
             before("/*", (q, a) -> logger.info("Received API-call."));
+            
+            redirect.get("/quote", docs_url + "#quote", Redirect.Status.MOVED_PERMANENTLY);
+            
+            redirect.get("/status", docs_url + "#quote", Redirect.Status.MOVED_PERMANENTLY);
+            
             Gson gson = new Gson();
 
             post("/quote", (request, response) -> {
