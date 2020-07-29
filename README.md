@@ -1,3 +1,7 @@
+> # Archived
+> This API has been merged into the [ImageAPI](https://github.com/purrbot-site/ImageAPI) for easier maintainability.  
+> This repository has been archived now.
+
 # PurrBotAPI
 The PurrBotAPI is an API to create dynamically generated images based on provided values.
 
